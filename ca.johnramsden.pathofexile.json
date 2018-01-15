@@ -1,0 +1,165 @@
+{
+    "app-id": "ca.johnramsden.pathofexile",
+    "runtime": "org.gnome.Platform/i386/3.26",
+    "sdk": "org.gnome.Sdk/i386/3.26",
+    "tags": ["proprietary"],
+    "command": "pathofexile_setup.sh",
+    "build-options": {
+      "env": {
+        "WINEPREFIX": "/var/data/.local/share/pathofexile",
+        "WINEDLLOVERRIDES": "mscoree=d;mshtml=d"
+      },
+      "build-args": [
+        "--nofilesystem=~/.wine"
+      ]
+    },
+    "finish-args": [
+       "--persist=.local/share/pathofexile",
+       "--socket=x11",
+       "--share=network",
+       "--share=ipc",
+       "--device=dri",
+       "--allow=multiarch",
+       "--socket=pulseaudio",
+       "--filesystem=/var/log:ro",
+       "--env=WINEDEBUG=-all"
+    ],
+    "modules": [
+        {
+            "name": "wine",
+            "buildsystem": "autotools",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://dl.winehq.org/wine/source/2.x/wine-2.21.tar.xz",
+                    "sha256": "bafa04e8cfbb3c5fbb6bb5080fb5d3f2f6816ac69518d0ed50aceadb66b4abef"
+                },
+                {
+                    "type": "archive",
+                    "url": "https://github.com/wine-compholio/wine-staging/archive/v2.21.tar.gz",
+                    "sha256": "20ff258de2dcc2f886fcb804c313963da060a55c89f5265c69510a2adfd04ba6"
+                },
+                {
+                    "type": "shell",
+                    "commands": [ "./patches/patchinstall.sh DESTDIR=$(pwd) --all" ]
+                }
+            ]
+        },
+        {
+            "name": "winetricks",
+            "buildsystem": "simple",
+            "build-commands": [
+              "make",
+              "make PREFIX=/app install",
+              "chmod +x /app/bin/winetricks"
+            ],
+            "no-make-install": true,
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/Winetricks/winetricks/archive/20171222.tar.gz",
+                    "sha256": "971e1979c87375979cef4d2ca3335b8993df2454932ffc4956cb8588b49bd04d"
+                }
+            ]
+        },
+        {
+            "name": "cabextract",
+            "buildsystem": "autotools",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://www.cabextract.org.uk/cabextract-1.6.tar.gz",
+                    "sha256": "cee661b56555350d26943c5e127fc75dd290b7f75689d5ebc1f04957c4af55fb"
+                }
+            ]
+        },
+        {
+            "name": "wine-gecko",
+            "buildsystem": "simple",
+            "build-commands": [
+              "mkdir -p ${WINEPREFIX}",
+              "install -D wine_gecko-2.47-x86.msi /app/share/wine/gecko/gecko/wine_gecko-2.47-x86.msi"
+            ],
+            "no-make-install": true,
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86.msi",
+                    "sha256": "3b8a361f5d63952d21caafd74e849a774994822fb96c5922b01d554f1677643a"
+                }
+            ]
+        },
+        {
+            "name": "wine-mono",
+            "buildsystem": "simple",
+            "build-commands": [
+              "install -D wine-mono-4.7.1.msi /app/share/wine/mono/wine-mono-4.7.1.msi"
+            ],
+            "no-make-install": true,
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "http://dl.winehq.org/wine/wine-mono/4.7.1/wine-mono-4.7.1.msi",
+                    "sha256": "2c8d5db7f833c3413b2519991f5af1f433d59a927564ec6f38a3f1f8b2c629aa"
+                }
+            ]
+        },
+        {
+            "name": "winetricks-installer",
+            "buildsystem": "simple",
+            "build-commands": [ "install --directory ${WINEPREFIX}" ],
+            "no-make-install": true,
+            "build-options": {
+              "build-args": [
+                  "--share=network",
+                  "--socket=x11"
+              ]
+            },
+            "sources": [
+                {
+                    "type": "shell",
+                    "commands": [
+                      "winetricks --unattended csmt=on",
+                      "winetricks --unattended win7",
+                      "winetricks --unattended vd=1920x1080",
+                      "winetricks --unattended glsl=disabled"
+                    ]
+                },
+                {
+                    "type": "shell",
+                    "commands": [
+                      "winetricks --unattended directx9",
+                      "winetricks --unattended usp10",
+                      "winetricks --unattended msls31",
+                      "winetricks --unattended corefonts",
+                      "winetricks --unattended tahoma"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "wget",
+            "buildsystem": "autotools",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://ftp.gnu.org/gnu/wget/wget-1.19.tar.xz",
+                    "sha256": "0f1157bbf4daae19f3e1ddb70c6ccb2067feb834a6aa23c9d9daa7f048606384"
+                }
+            ]
+        },
+        {
+            "name": "pathofexile-installer",
+            "buildsystem": "simple",
+            "build-commands": [ "install pathofexile_setup.sh /app/bin" ],
+            "no-make-install": true,
+            "sources": [
+                {
+                "type": "file",
+                "url": "https://raw.githubusercontent.com/johnramsden/pathofexile-flatpak/master/pathofexile_setup.sh",
+                "sha256": "2d3b5e2dfe65ae6c579b42b9bb20c7ee421210542f54cf9772ec5b1bf45eaa52"
+                }
+            ]
+        }
+    ]
+}
