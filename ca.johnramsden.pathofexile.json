@@ -127,7 +127,7 @@
                 {
                 "type": "file",
                 "url": "https://raw.githubusercontent.com/johnramsden/pathofexile-flatpak/master/pathofexile_setup.sh",
-                "sha256": "f4538b2356b84527c8cb4be4074011035a682d7c3be584a01d09af97a6798e72"
+                "sha256": "0580730a6c07ab637171ccdb45a3265156ec1e6759e21c8954a1e602add1b086"
                 }
             ]
         }

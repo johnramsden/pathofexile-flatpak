@@ -14,13 +14,13 @@ if grep -q 'Software\\\\GrindingGearGames\\\\Path of Exile' ${WINEPREFIX}/user.r
   ${WINE_CMD} "${WINEPREFIX}/drive_c/Program Files/Grinding Gear Games/Path of Exile/PathOfExile.exe" \
     dbox  -no-dwrite -noasync
 else
-  echo "Path of Exile not installed, running first run settings."
-  
-  winetricks --unattended win7 csmt=on vd=1920x1080 glsl=disabled
-
-  echo "Installing first run wine requirements."
+  echo "Path of Exile not installed, Installing first run wine requirements."
 
   winetricks --unattended directx9 usp10 msls31 corefonts tahoma
+
+  echo "Running first run settings."
+  
+  winetricks --unattended win7 csmt=on vd=1920x1080 glsl=disabled
 
   if [ ! -f "${POE_SETUP}" ]; then
     echo "Downloading Path of Exile installer."
