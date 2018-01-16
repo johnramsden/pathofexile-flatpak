@@ -105,39 +105,6 @@
             ]
         },
         {
-            "name": "winetricks-installer",
-            "buildsystem": "simple",
-            "build-commands": [ "install --directory ${WINEPREFIX}" ],
-            "no-make-install": true,
-            "build-options": {
-              "build-args": [
-                  "--share=network",
-                  "--socket=x11"
-              ]
-            },
-            "sources": [
-                {
-                    "type": "shell",
-                    "commands": [
-                      "winetricks --unattended csmt=on",
-                      "winetricks --unattended win7",
-                      "winetricks --unattended vd=1920x1080",
-                      "winetricks --unattended glsl=disabled"
-                    ]
-                },
-                {
-                    "type": "shell",
-                    "commands": [
-                      "winetricks --unattended directx9",
-                      "winetricks --unattended usp10",
-                      "winetricks --unattended msls31",
-                      "winetricks --unattended corefonts",
-                      "winetricks --unattended tahoma"
-                    ]
-                }
-            ]
-        },
-        {
             "name": "wget",
             "buildsystem": "autotools",
             "sources": [
@@ -151,13 +118,16 @@
         {
             "name": "pathofexile-installer",
             "buildsystem": "simple",
-            "build-commands": [ "install pathofexile_setup.sh /app/bin" ],
+            "build-commands": [ 
+                "install --directory ${WINEPREFIX}",
+                "install pathofexile_setup.sh /app/bin"
+            ],
             "no-make-install": true,
             "sources": [
                 {
                 "type": "file",
                 "url": "https://raw.githubusercontent.com/johnramsden/pathofexile-flatpak/master/pathofexile_setup.sh",
-                "sha256": "2d3b5e2dfe65ae6c579b42b9bb20c7ee421210542f54cf9772ec5b1bf45eaa52"
+                "sha256": "f4538b2356b84527c8cb4be4074011035a682d7c3be584a01d09af97a6798e72"
                 }
             ]
         }
