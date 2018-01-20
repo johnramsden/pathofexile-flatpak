@@ -28,7 +28,6 @@
         {
             "name": "wine",
             "buildsystem": "autotools",
-            "config-opts": [ "--enable-silent-rules" ],
             "build-options": {
                 "env": {
                     "V": "0"
