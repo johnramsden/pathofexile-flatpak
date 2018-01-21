@@ -5,6 +5,7 @@
     "tags": ["proprietary"],
     "command": "pathofexile_setup.sh",
     "build-options": {
+      "cflags": "-O1 -pipe",
       "env": {
         "WINEPREFIX": "/var/data/.local/share/pathofexile",
         "WINEDLLOVERRIDES": "mscoree=d;mshtml=d",
