@@ -1,7 +1,8 @@
 {
     "app-id": "ca.johnramsden.pathofexile",
-    "runtime": "org.gnome.Platform/i386/3.26",
-    "sdk": "org.gnome.Sdk/i386/3.26",
+    "runtime": "org.gnome.Platform/i386/3.28",
+    "sdk": "org.gnome.Sdk/i386/3.28",
+    "branch": "stable",
     "tags": ["proprietary"],
     "command": "pathofexile_setup.sh",
     "build-options": {
@@ -131,8 +132,37 @@
             "sources": [
                 {
                 "type": "file",
-                "url": "https://raw.githubusercontent.com/johnramsden/pathofexile-flatpak/master/pathofexile_setup.sh",
+                "path": "pathofexile_setup.sh",
                 "sha256": "6250d78c89574e7f63ace6155cad120974b8c86abd95db8a9c4b409b94d0c7ee"
+                }
+            ]
+        },
+        {
+            "name": "icons",
+            "buildsystem": "simple",
+            "build-commands": [ 
+                "install -D --mode=644 pathofexile-256.png /app/share/icons/hicolor/256x256/apps/ca.johnramsden.pathofexile.png"
+            ],
+            "no-make-install": true,
+            "sources": [
+                {
+                "type": "file",
+                "path": "pathofexile-256.png",
+                "sha256": "812ffce2eef92b9b4efac0674e9dcfb56dd66989b2d005e1742a6ed6d1ad2d7f"
+                }
+            ]
+        },
+        {
+            "name": "desktop",
+            "buildsystem": "simple",
+            "build-commands": [ 
+                "install -D --mode=644 pathofexile.desktop /app/share/applications/ca.johnramsden.pathofexile.desktop"
+            ],
+            "no-make-install": true,
+            "sources": [
+                {
+                "type": "file",
+                "path": "pathofexile.desktop"
                 }
             ]
         }
