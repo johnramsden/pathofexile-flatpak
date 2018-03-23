@@ -4,7 +4,7 @@
     "sdk": "org.gnome.Sdk/i386/3.28",
     "branch": "stable",
     "tags": ["proprietary"],
-    "command": "pathofexile_setup.sh",
+    "command": "pathofexile.sh",
     "build-options": {
       "cflags": "-O1 -pipe",
       "env": {
@@ -126,13 +126,13 @@
             "buildsystem": "simple",
             "build-commands": [ 
                 "install --directory ${WINEPREFIX}",
-                "install pathofexile_setup.sh /app/bin"
+                "install pathofexile.sh /app/bin"
             ],
             "no-make-install": true,
             "sources": [
                 {
                 "type": "file",
-                "path": "pathofexile_setup.sh",
+                "path": "pathofexile.sh",
                 "sha256": "6250d78c89574e7f63ace6155cad120974b8c86abd95db8a9c4b409b94d0c7ee"
                 }
             ]
