@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop-application">
+  <id>ca.johnramsden.pathofexile</id>
+  <name>Path of Exile</name>
+  <summary>Path of Exile is an online Action RPG set in the dark fantasy world of Wraeclast</summary>
+  <metadata_license>MIT</metadata_license>
+  <developer_name>Grinding Gear Games</developer_name>
+  <description>
+    <p>Path of Exile is an online Action RPG set in the dark fantasy world of Wraeclast. It is designed around a strong online item economy, deep character customisation, competitive PvP and ladder races. The game is completely free and will never be 'pay to win'.</p>
+  </description>
+</component>

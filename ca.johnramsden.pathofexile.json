@@ -165,6 +165,20 @@
                 "path": "pathofexile.desktop"
                 }
             ]
+        },
+        {
+            "name": "metadata",
+            "buildsystem": "simple",
+            "build-commands": [ 
+                "install -D --mode=644 ca.johnramsden.pathofexile.appdata.xml /app/share/metainfo/ca.johnramsden.pathofexile.appdata.xml"
+            ],
+            "no-make-install": true,
+            "sources": [
+                {
+                "type": "file",
+                "path": "ca.johnramsden.pathofexile.appdata.xml"
+                }
+            ]
         }
     ]
 }
