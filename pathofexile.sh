@@ -7,7 +7,15 @@ POE_INSTALLER_NAME="pathofexile_setup.exe"
 POE_SETUP="${WINEPREFIX}/${POE_INSTALLER_NAME}"
 POE_DOWNLOAD_URL='https://www.pathofexile.com/downloads/PathOfExileInstaller.exe'
 
+WINE_RESOLUTION="${WINE_RESOLUTION:-1920x1080}"
+
 WINE_CMD="/app/bin/wine"
+
+echo "Path of Exile Unofficial Flatpak"
+echo
+
+echo "Setting resolution to ${WINE_RESOLUTION}, if changed from default may need restart to take effect"
+winetricks --unattended vd=${WINE_RESOLUTION}
 
 if grep -q 'Software\\\\GrindingGearGames\\\\Path of Exile' ${WINEPREFIX}/user.reg; then
   echo "Path of Exile installed, running..."
@@ -15,12 +23,10 @@ if grep -q 'Software\\\\GrindingGearGames\\\\Path of Exile' ${WINEPREFIX}/user.r
     dbox  -no-dwrite -noasync
 else
   echo "Path of Exile not installed, Installing first run wine requirements."
-
   winetricks --unattended directx9 usp10 msls31 corefonts tahoma win7
 
   echo "Running first run settings."
-  
-  winetricks --unattended csmt=on vd=1920x1080 glsl=disabled
+  winetricks --unattended csmt=on glsl=disabled
 
   # Set video memory 
   if [ -f "/var/log/Xorg.0.log" ]; then 

@@ -2,7 +2,7 @@
     "app-id": "ca.johnramsden.pathofexile",
     "runtime": "org.gnome.Platform/i386/3.28",
     "sdk": "org.gnome.Sdk/i386/3.28",
-    "branch": "stable",
+    "branch": "master",
     "tags": ["proprietary"],
     "command": "pathofexile.sh",
     "build-options": {
@@ -25,7 +25,8 @@
        "--allow=multiarch",
        "--socket=pulseaudio",
        "--filesystem=/var/log:ro",
-       "--env=WINEDEBUG=-all"
+       "--env=WINEDEBUG=-all",
+       "--env=WINE_RESOLUTION=1920x1080"
     ],
     "modules": [
         {
@@ -132,8 +133,7 @@
             "sources": [
                 {
                 "type": "file",
-                "path": "pathofexile.sh",
-                "sha256": "6250d78c89574e7f63ace6155cad120974b8c86abd95db8a9c4b409b94d0c7ee"
+                "path": "pathofexile.sh"
                 }
             ]
         },
