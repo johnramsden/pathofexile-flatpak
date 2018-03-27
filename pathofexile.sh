@@ -13,7 +13,9 @@ WINE_CMD="/app/bin/wine"
 
 XORG_LOG="/var/log/Xorg.0.log"
 
-echo "Path of Exile Unofficial Flatpak"
+echo "######################################"
+echo "## Path of Exile Unofficial Flatpak ##"
+echo "######################################"
 echo
 
 # Set video memory by checking xorg
@@ -31,10 +33,6 @@ Windows Registry Editor Version 5.00
 "VideoMemorySize"="${VIDEO_MEMORY}"
 
 EOF
-
-     echo "Setting registry key:"
-     cat ${tmpfile}
-
      wine regedit ${tmpfile}
      rm ${tmpfile}
   else
@@ -61,8 +59,11 @@ first_run(){
 
 # Main function
 startup(){
-  echo "Setting resolution to ${WINE_RESOLUTION}, if changed from default may need restart to take effect"
+  echo "Setting resolution to ${WINE_RESOLUTION}"
+  echo "If resolution was changed from default, game may need restarting"
   winetricks --unattended vd=${WINE_RESOLUTION}
+
+  echo
 
   set_video_memory
 
@@ -70,7 +71,7 @@ startup(){
     first_run 
   fi
 
-  echo "Starting Path of Exile..."
+  echo ; echo "Starting Path of Exile..."
   ${WINE_CMD} "${WINEPREFIX}/drive_c/Program Files/Grinding Gear Games/Path of Exile/PathOfExile.exe" \
     dbox  -no-dwrite -noasync
 }
