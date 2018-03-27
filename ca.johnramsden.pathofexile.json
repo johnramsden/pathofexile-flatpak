@@ -11,10 +11,7 @@
         "WINEPREFIX": "/var/data/.local/share/pathofexile",
         "WINEDLLOVERRIDES": "mscoree=d;mshtml=d",
         "V": "0"
-      },
-      "build-args": [
-        "--nofilesystem=~/.wine"
-      ]
+      }
     },
     "finish-args": [
        "--persist=.local/share/pathofexile",
@@ -31,7 +28,6 @@
     "modules": [
         {
             "name": "wine",
-            "buildsystem": "autotools",
             "build-options": {
                 "make-args": [ "--silent" ] 
             },
@@ -60,7 +56,6 @@
               "make PREFIX=/app install",
               "chmod +x /app/bin/winetricks"
             ],
-            "no-make-install": true,
             "sources": [
                 {
                     "type": "archive",
