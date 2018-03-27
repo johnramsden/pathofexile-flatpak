@@ -31,6 +31,47 @@
             "build-options": {
                 "make-args": [ "--silent" ] 
             },
+            "config-opts": [
+                "--libdir=/app/lib",
+                "--disable-win16",
+                "--with-x",
+                "--without-cups",
+                "--without-curses",
+                "--without-capi",
+                "--without-glu",
+                "--without-gphoto",
+                "--without-gsm",
+                "--without-hal",
+                "--without-ldap",
+                "--without-netapi"
+            ],
+            "cleanup": [
+                "/bin/function_grep.pl",
+                "/bin/msiexec",
+                "/bin/widl",
+                "/bin/wine64-preloader",
+                "/bin/winebuild",
+                "/bin/wineconsole",
+                "/bin/winedbg",
+                "/bin/winefile",
+                "/bin/winegcc",
+                "/bin/winemine",
+                "/bin/wrc",
+                "/bin/msidb",
+                "/bin/notepad",
+                "/bin/regsvr32",
+                "/bin/wineboot",
+                "/bin/winecfg",
+                "/bin/winecpp",
+                "/bin/winedump",
+                "/bin/wineg++",
+                "/bin/winemaker",
+                "/bin/winepath",
+                "/bin/wmc",
+                "/include",
+                "/share/man",
+                "/share/applications"
+            ],
             "sources": [
                 {
                     "type": "archive",
