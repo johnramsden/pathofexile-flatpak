@@ -22,6 +22,7 @@
        "--allow=multiarch",
        "--socket=pulseaudio",
        "--filesystem=/var/log:ro",
+       "--filesystem=xdg-documents",
        "--env=WINEDEBUG=-all",
        "--env=WINE_RESOLUTION=1920x1080"
     ],
