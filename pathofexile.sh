@@ -13,7 +13,7 @@ WINE_CMD="/app/bin/wine"
 
 XORG_LOG="/var/log/Xorg.0.log"
 
-VERSION_NUM="0.1.1"
+VERSION_NUM="0.1.2"
 VERSION_FILE="${WINEPREFIX}/ca.johnramsden.pathofexile.version"
 
 echo "#############################################"
@@ -23,25 +23,43 @@ echo
 
 # Set video memory by checking xorg
 set_video_memory(){
-  if [ -f "${XORG_LOG}" ]; then 
-    VIDEO_MEMORY=$(($(sed -rn 's/.*memory: ([0-9]*).*kbytes/\1/gpI' ${XORG_LOG}) / 1024))
+  if [[ ! -z "${VIDEO_MEMORY}" ]]; then
+    echo "Using explicitly set VMEM of ${VIDEO_MEMORY}"
+  elif  [ -f "${XORG_LOG}" ]; then
 
-    echo "Setting video memory to ${VIDEO_MEMORY}" 
-    tmpfile=$(mktemp VideoMemory.XXXXX.reg)
+    # Get Video Memory from Xorg logs
+    local xorg_vmem
+    xorg_vmem="$(sed -rn 's/.*memory: ([0-9]*).*kbytes/\1/gpI' ${XORG_LOG})"
 
-    cat <<EOF > "${tmpfile}"
+    if [[ ! -z "${xorg_vmem}" ]]; then
+        VIDEO_MEMORY=$((${xorg_vmem} / 1024))
+        echo "Setting video memory to ${VIDEO_MEMORY}" 
+    else
+      echo "Unable to find video memory in ${XORG_LOG}."
+      echo "Leaving video card memory at default settings."
+      echo "To set value explicitly, set the VIDEO_MEMORY environment variable"
+      return 1
+    fi
+
+  else
+    echo "Unable to read Xorg logs from ${XORG_LOG}."
+    echo "Leaving video card memory at default settings."
+    return 1
+  fi 
+
+      tmpfile=$(mktemp VideoMemory.XXXXX.reg)
+
+      cat <<EOF > "${tmpfile}"
 Windows Registry Editor Version 5.00
 
 [HKEY_CURRENT_USER\\Software\\Wine\\Direct3D]
 "VideoMemorySize"="${VIDEO_MEMORY}"
 
 EOF
-     wine regedit ${tmpfile} >/dev/null 2>&1
-     rm ${tmpfile}
-  else
-    echo "Unable to read Xorg logs from ${XORG_LOG}."
-    echo "Leaving video card memory at default settings."
-  fi 
+
+  wine regedit "${tmpfile}" >/dev/null 2>&1
+  rm "${tmpfile}"
+  return 0
 }
 
 set_wine_settings(){
