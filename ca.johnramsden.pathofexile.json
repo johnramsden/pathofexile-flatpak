@@ -1,8 +1,8 @@
 {
     "app-id": "ca.johnramsden.pathofexile",
-    "runtime": "org.gnome.Platform/i386/3.28",
-    "sdk": "org.gnome.Sdk/i386/3.28",
-    "branch": "master",
+    "runtime": "org.gnome.Platform/x86_64/3.28",
+    "sdk": "org.gnome.Sdk/x86_64/3.28",
+    "branch": "64bit",
     "tags": ["proprietary"],
     "command": "pathofexile.sh",
     "build-options": {
@@ -14,7 +14,7 @@
       }
     },
     "finish-args": [
-       "--persist=.local/share/pathofexile",
+       "--persist=.local/share/pathofexile_x64",
        "--socket=x11",
        "--share=network",
        "--share=ipc",
@@ -25,7 +25,8 @@
        "--filesystem=xdg-documents",
        "--env=WINEDEBUG=-all",
        "--env=WINE_RESOLUTION=1920x1080",
-       "--env=VIDEO_MEMORY="
+       "--env=VIDEO_MEMORY=",
+       "--env=WINE=/app/bin/wine64"
     ],
     "modules": [
         {
@@ -36,6 +37,8 @@
             "config-opts": [
                 "--libdir=/app/lib",
                 "--disable-win16",
+                "--disable-win32",
+                "--enable-win64",
                 "--with-x",
                 "--without-cups",
                 "--without-curses",
@@ -77,13 +80,13 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://dl.winehq.org/wine/source/3.x/wine-3.4.tar.xz",
-                    "sha256": "a483247ac93f325d623a463438590b7355ec26c670af15d356b0ce6c46398e93"
+                    "url": "https://dl.winehq.org/wine/source/3.x/wine-3.5.tar.xz",
+                    "sha256": "f42206143b7caf5527dbcd54c21f9b0a22338d8841d7fa08aa6c5f0b9dd72143"
                 },
                 {
                     "type": "archive",
-                    "url": "https://github.com/wine-staging/wine-staging/archive/v3.4.tar.gz",
-                    "sha256": "c56f5d2706e228fe4f720e9301af30e82b4a7b6c1749d0b6170e60f1cb16fe34"
+                    "url": "https://github.com/wine-staging/wine-staging/archive/v3.5.tar.gz",
+                    "sha256": "1f26c00b91c9f554b9adbeb9362bfcd9c7df13dd331aac07ca8dd2dce550cbbf"
                 },
                 {
                     "type": "shell",
@@ -123,14 +126,14 @@
             "buildsystem": "simple",
             "build-commands": [
               "mkdir -p ${WINEPREFIX}",
-              "install -D wine_gecko-2.47-x86.msi /app/share/wine/gecko/wine_gecko-2.47-x86.msi"
+              "install -D wine_gecko-2.47-x86_64.msi /app/share/wine/gecko/wine_gecko-2.47-x86_64.msi"
             ],
             "no-make-install": true,
             "sources": [
                 {
                     "type": "file",
-                    "url": "http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86.msi",
-                    "sha256": "3b8a361f5d63952d21caafd74e849a774994822fb96c5922b01d554f1677643a"
+                    "url": "http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86_64.msi",
+                    "sha256": "c565ea25e50ea953937d4ab01299e4306da4a556946327d253ea9b28357e4a7d"
                 }
             ]
         },
