@@ -1,22 +1,22 @@
 #!/bin/bash
 
-export WINEPREFIX="${HOME}/.local/share/pathofexile"
+export WINEPREFIX="${HOME}/.local/share/pathofexile_x64"
 export WINEDEBUG=-all
 
 POE_INSTALLER_NAME="pathofexile_setup.exe"
 POE_SETUP="${WINEPREFIX}/${POE_INSTALLER_NAME}"
 POE_DOWNLOAD_URL='https://www.pathofexile.com/downloads/PathOfExileInstaller.exe'
-POE_RUN_CMD="${WINEPREFIX}/drive_c/Program Files/Grinding Gear Games/Path of Exile/PathOfExile.exe"
+POE_RUN_CMD="${WINEPREFIX}/drive_c/Program Files/Grinding Gear Games/Path of Exile/PathOfExile_x64.exe"
 
 WINE_RESOLUTION="${WINE_RESOLUTION:-1920x1080}"
 WINE="/app/bin/wine"
 
 XORG_LOG="/var/log/Xorg.0.log"
 
-VERSION_NUM="0.1.3"
+VERSION_NUM="0.2.0"
 VERSION_FILE="${WINEPREFIX}/ca.johnramsden.pathofexile.version"
 
-declare -ra WINE_PACKAGES=(directx9 usp10 msls31 corefonts tahoma win7)
+declare -ra WINE_PACKAGES=(d3dx11_43 usp10 msls31 corefonts tahoma win7)
 declare -ra WINE_SETTINGS=('csmt=on' 'glsl=disabled')
 
 echo "#############################################"

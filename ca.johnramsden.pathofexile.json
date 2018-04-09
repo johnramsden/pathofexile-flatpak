@@ -1,9 +1,9 @@
 {
     "app-id": "ca.johnramsden.pathofexile",
-    "branch": "master",
-    "runtime": "org.freedesktop.Platform/i386", 
-    "sdk": "org.freedesktop.Sdk/i386", 
-    "runtime-version": "1.6", 
+    "runtime": "org.freedesktop.Platform/x86_64", 
+    "sdk": "org.freedesktop.Sdk/x86_64", 
+    "runtime-version": "1.6",
+    "branch": "64bit",
     "tags": ["proprietary"],
     "command": "pathofexile.sh",
     "build-options": {
@@ -15,7 +15,7 @@
       }
     },
     "finish-args": [
-       "--persist=.local/share/pathofexile",
+       "--persist=.local/share/pathofexile_x64",
        "--socket=x11",
        "--share=network",
        "--share=ipc",
@@ -26,7 +26,8 @@
        "--filesystem=xdg-documents",
        "--env=WINEDEBUG=-all",
        "--env=WINE_RESOLUTION=1920x1080",
-       "--env=VIDEO_MEMORY="
+       "--env=VIDEO_MEMORY=",
+       "--env=WINE=/app/bin/wine64"
     ],
     "modules": [
         {
@@ -37,6 +38,8 @@
             "config-opts": [
                 "--libdir=/app/lib",
                 "--disable-win16",
+                "--disable-win32",
+                "--enable-win64",
                 "--with-x",
                 "--without-cups",
                 "--without-curses",
@@ -124,14 +127,14 @@
             "buildsystem": "simple",
             "build-commands": [
               "mkdir -p ${WINEPREFIX}",
-              "install -D wine_gecko-2.47-x86.msi /app/share/wine/gecko/wine_gecko-2.47-x86.msi"
+              "install -D wine_gecko-2.47-x86_64.msi /app/share/wine/gecko/wine_gecko-2.47-x86_64.msi"
             ],
             "no-make-install": true,
             "sources": [
                 {
                     "type": "file",
-                    "url": "http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86.msi",
-                    "sha256": "3b8a361f5d63952d21caafd74e849a774994822fb96c5922b01d554f1677643a"
+                    "url": "http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86_64.msi",
+                    "sha256": "c565ea25e50ea953937d4ab01299e4306da4a556946327d253ea9b28357e4a7d"
                 }
             ]
         },
