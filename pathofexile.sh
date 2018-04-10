@@ -2,6 +2,8 @@
 
 export WINEPREFIX="${HOME}/.local/share/pathofexile_x64"
 export WINEDEBUG=-all
+export WINE="/app/bin/wine64"
+export WINEARCH="win64"
 
 POE_INSTALLER_NAME="pathofexile_setup.exe"
 POE_SETUP="${WINEPREFIX}/${POE_INSTALLER_NAME}"
@@ -9,7 +11,6 @@ POE_DOWNLOAD_URL='https://www.pathofexile.com/downloads/PathOfExileInstaller.exe
 POE_RUN_CMD="${WINEPREFIX}/drive_c/Program Files/Grinding Gear Games/Path of Exile/PathOfExile_x64.exe"
 
 WINE_RESOLUTION="${WINE_RESOLUTION:-1920x1080}"
-WINE="/app/bin/wine64"
 
 XORG_LOG="/var/log/Xorg.0.log"
 

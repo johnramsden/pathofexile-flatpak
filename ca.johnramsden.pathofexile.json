@@ -19,14 +19,14 @@
        "--share=network",
        "--share=ipc",
        "--device=dri",
-       "--allow=multiarch",
        "--socket=pulseaudio",
        "--filesystem=/var/log:ro",
        "--filesystem=xdg-documents",
        "--env=WINEDEBUG=-all",
+       "--env=WINEARCH=win64",
+       "--env=WINE=/app/bin/wine64",
        "--env=WINE_RESOLUTION=1920x1080",
-       "--env=VIDEO_MEMORY=",
-       "--env=WINE=/app/bin/wine64"
+       "--env=VIDEO_MEMORY="
     ],
     "modules": [
         {
@@ -54,7 +54,6 @@
                 "/bin/function_grep.pl",
                 "/bin/msiexec",
                 "/bin/widl",
-                "/bin/wine64-preloader",
                 "/bin/winebuild",
                 "/bin/wineconsole",
                 "/bin/winedbg",
@@ -91,6 +90,21 @@
                 {
                     "type": "shell",
                     "commands": [ "./patches/patchinstall.sh DESTDIR=$(pwd) --all" ]
+                }
+            ]
+        },
+        {
+            "name": "wine-dxvk",
+            "buildsystem": "simple",
+            "build-commands": [
+              "mkdir -p /app/share/dxvk",
+              "ln -s /app/share/dxvk/x64/setup_dxvk.sh /app/bin/setup_dxvk64"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/doitsujin/dxvk/releases/download/v0.41/dxvk-0.41.tar.gz",
+                    "sha256": "2b08600ce7827a244a4e50516f51629b35ae981f682d681f8188f8bc6421e564"
                 }
             ]
         },
