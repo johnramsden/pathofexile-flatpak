@@ -6,15 +6,18 @@ export WINEDEBUG=-all
 POE_INSTALLER_NAME="pathofexile_setup.exe"
 POE_SETUP="${WINEPREFIX}/${POE_INSTALLER_NAME}"
 POE_DOWNLOAD_URL='https://www.pathofexile.com/downloads/PathOfExileInstaller.exe'
+POE_RUN_CMD="${WINEPREFIX}/drive_c/Program Files/Grinding Gear Games/Path of Exile/PathOfExile.exe"
 
 WINE_RESOLUTION="${WINE_RESOLUTION:-1920x1080}"
-
-WINE_CMD="/app/bin/wine"
+WINE="/app/bin/wine"
 
 XORG_LOG="/var/log/Xorg.0.log"
 
-VERSION_NUM="0.1.2"
+VERSION_NUM="0.1.3"
 VERSION_FILE="${WINEPREFIX}/ca.johnramsden.pathofexile.version"
+
+declare -ra WINE_PACKAGES=(directx9 usp10 msls31 corefonts tahoma win7)
+declare -ra WINE_SETTINGS=('csmt=on' 'glsl=disabled')
 
 echo "#############################################"
 echo "## Path of Exile Unofficial Flatpak v${VERSION_NUM} ##"
@@ -57,7 +60,7 @@ Windows Registry Editor Version 5.00
 
 EOF
 
-  wine regedit "${tmpfile}" >/dev/null 2>&1
+  "${WINE}" regedit "${tmpfile}" >/dev/null 2>&1
   rm "${tmpfile}"
   return 0
 }
@@ -66,10 +69,10 @@ set_wine_settings(){
   local my_documents="${WINEPREFIX}/drive_c/users/${USER}/My Documents"
 
   echo "Installing wine requirements."
-  winetricks --unattended directx9 usp10 msls31 corefonts tahoma win7
+  winetricks --unattended "${WINE_PACKAGES[@]}"
 
   echo "Setting wine settings."
-  winetricks --unattended csmt=on glsl=disabled
+  winetricks --unattended "${WINE_SETTINGS[@]}"
 
   # Symlink points to wrong location, fix it
   if [[ "$(readlink "${my_documents}")" != "${XDG_DOCUMENTS_DIR}" ]]; then
@@ -92,7 +95,7 @@ first_run(){
     wget --output-document="${POE_SETUP}" "${POE_DOWNLOAD_URL}"
   fi
   echo "Running Path of Exile installer."
-  "${WINE_CMD}" "${POE_SETUP}"
+  "${WINE}" "${POE_SETUP}"
 }
 
 is_updated(){
@@ -128,11 +131,10 @@ startup(){
     
   echo "Setting resolution to ${WINE_RESOLUTION}"
   echo "If resolution was changed from default, game may need restarting"
-  winetricks --unattended vd=${WINE_RESOLUTION} >/dev/null
+  winetricks --unattended vd="${WINE_RESOLUTION}" >/dev/null
 
   echo ; echo "Starting Path of Exile..."
-  ${WINE_CMD} "${WINEPREFIX}/drive_c/Program Files/Grinding Gear Games/Path of Exile/PathOfExile.exe" \
-    dbox  -no-dwrite -noasync
+  "${WINE}" "${POE_RUN_CMD}" dbox  -no-dwrite -noasync
 }
 
 startup
