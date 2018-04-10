@@ -27,30 +27,17 @@
        "--env=WINEDEBUG=-all",
        "--env=WINE_RESOLUTION=1920x1080",
        "--env=VIDEO_MEMORY=",
-       "--env=WINE=/app/bin/wine64"
+       "--env=WINE=/app/bin/wine",
+       "--env=LD_LIBRARY_PATH=/app/lib:/app/lib32"
     ],
     "modules": [
         {
             "name": "wine",
-            "build-options": {
-                "make-args": [ "--silent" ] 
-            },
-            "config-opts": [
-                "--libdir=/app/lib",
-                "--disable-win16",
-                "--disable-win32",
-                "--enable-win64",
-                "--with-x",
-                "--without-cups",
-                "--without-curses",
-                "--without-capi",
-                "--without-glu",
-                "--without-gphoto",
-                "--without-gsm",
-                "--without-hal",
-                "--without-ldap",
-                "--without-netapi"
+            "buildsystem": "simple",
+            "build-commands": [
+              "chmod +x winebuild.sh && ./winebuild.sh"
             ],
+            "no-make-install": true,
             "cleanup": [
                 "/bin/function_grep.pl",
                 "/bin/msiexec",
@@ -92,6 +79,10 @@
                 {
                     "type": "shell",
                     "commands": [ "./patches/patchinstall.sh DESTDIR=$(pwd) --all" ]
+                },
+                {
+                    "type": "file",
+                    "path": "winebuild.sh"
                 }
             ]
         },
