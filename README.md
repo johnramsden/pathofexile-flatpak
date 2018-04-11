@@ -17,13 +17,13 @@ Now you should be able to install my flatpaks.
 flatpak --user install johnramsden ca.johnramsden.pathofexile
 ```
 
-If you are missing the GNOME platform you may need to add the flathub or gnome repository and install it.
+If you are missing the freedesktop platform you may need to add the flathub repository and install it. It should install itself, but you can also explicitly install it.
 
 ```
 flatpak --user remote-add \
     --if-not-exists flathub \
     https://flathub.org/repo/flathub.flatpakrepo
-flatpak --user install flathub org.gnome.Platform//3.28
+flatpak --user install flathub org.freedesktop.Platform//1.6
 ```
 
 To change the virtual desktop resolution, set the environment variable `WINE_RESOLUTION` in the run command. 
@@ -32,6 +32,12 @@ It defaults to 1920x1080, to set it to 720x480 for example you would change the 
 
 ```
 flatpak run --env=WINE_RESOLUTION=720x480 ca.johnramsden.pathofexile
+```
+
+To change the video memory if it's not detected properly at run time, use the `VIDEO_MEMORY` environment variable
+
+```
+flatpak run --env=VIDEO_MEMORY=1024 ca.johnramsden.pathofexile 
 ```
 
 To make it permenant edit the `~/.local/share/flatpak/exports/share/applications/ca.johnramsden.pathofexile.desktop` file.
