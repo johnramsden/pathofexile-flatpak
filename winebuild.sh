@@ -1,5 +1,10 @@
 #!/bin/sh
 
+mult32bit_lib_path="/app/lib/32bit/lib"
+
+export LD_LIBRARY_PATH=/app/lib:${mult32bit_lib_path}
+export PATH=${PATH}:/app/lib/32bit/bin
+
 echo ; echo "Configuring 64bit wine" ; echo 
 
 mkdir -p wine_64_build && cd wine_64_build
@@ -26,10 +31,10 @@ cd ..
 echo ; echo "Configuring 32bit wine" ; echo 
 mkdir -p wine_32_build && cd wine_32_build
 
-mkdir -p /app/lib32
+mkdir -p ${mult32bit_lib_path}
                 
 ../configure --prefix=/app \
-             --libdir=/app/lib32 \
+             --libdir=${mult32bit_lib_path} \
              --disable-win16 \
              --with-wine64="../wine_64_build" \
              --with-x \
@@ -47,8 +52,7 @@ make --jobs=$(nproc)
 
 echo ; echo "Installing 32bit wine" ; echo 
 
-make prefix=/app libdir=/app/lib32 dlldir=/app/lib32/wine install || exit 1
-
+make prefix=/app libdir=${mult32bit_lib_path} dlldir=${mult32bit_lib_path}/wine install || exit 1
 
 echo ; echo "Installing 64bit wine" ; echo 
 
