@@ -1,7 +1,6 @@
 #!/bin/bash
 
 export WINEPREFIX="${HOME}/.local/share/pathofexile"
-export WINEDEBUG=-all
 
 POE_INSTALLER_NAME="pathofexile_setup.exe"
 POE_SETUP="${WINEPREFIX}/${POE_INSTALLER_NAME}"

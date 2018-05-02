@@ -123,7 +123,6 @@
             "name": "wine-gecko",
             "buildsystem": "simple",
             "build-commands": [
-              "mkdir -p ${WINEPREFIX}",
               "install -D wine_gecko-2.47-x86.msi /app/share/wine/gecko/wine_gecko-2.47-x86.msi"
             ],
             "no-make-install": true,
