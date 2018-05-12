@@ -78,13 +78,13 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://dl.winehq.org/wine/source/3.x/wine-3.7.tar.xz",
-                    "sha256": "76c73760d72497c59e81dfd7c5def450171bd59e9cff3df0a42454e0c7fc2bb7"
+                    "url": "https://dl.winehq.org/wine/source/3.x/wine-3.8.tar.xz",
+                    "sha256": "02b00c6c948b3bab717e1b1e2075a5406b14d138bd2e01fdb1268a93d1c20d51"
                 },
                 {
                     "type": "archive",
-                    "url": "https://github.com/wine-staging/wine-staging/archive/v3.7.tar.gz",
-                    "sha256": "e5d49cc5c52ccbd7412242f561d738536b1255631be23e6f0091ed519a318df7"
+                    "url": "https://github.com/wine-staging/wine-staging/archive/v3.8.tar.gz",
+                    "sha256": "fd40c24e00b3da4498f78885a5d3c4a9699790c1de78f6e43ff151432824f2ad"
                 },
                 {
                     "type": "shell",
