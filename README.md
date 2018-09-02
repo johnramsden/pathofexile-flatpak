@@ -2,6 +2,8 @@
 
 This [Flatpak](https://flatpak.org) installs Path of Exile in a 32bit wine prefix.
 
+*UPDATE: Since I created this flatpak, the [winepak](www.winepak.org) project has appeared. While the information in this post s still useful if you are looking to build a flatpak, if you are looking to install the flatpak, installing Path of Exile from there probably a better option since it supports 64-bit, and Is updated more frequently.*
+
 ## Installing
 
 If you want to try my flatpak without having to build it yourself, add my Flatpak repository.
